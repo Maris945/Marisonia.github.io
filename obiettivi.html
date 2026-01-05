@@ -1,26 +1,17 @@
 <!DOCTYPE html>
+<section id="descrizione" class="py-5">
+  <div class="container">
+    <h2 class="mb-4">Descrizione</h2>
+    <p>Qui puoi scrivere la descrizione del progetto, cosa fa, le tue idee e motivazioni.</p>
+  </div>
+</section>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Progetto Web Personale</title>
-  <!-- Bootstrap CSS -->
+  <title>Obiettivi - Marisonia Web</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- CSS personale -->
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* CSS aggiuntivo per hero image */
-    #home {
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                  url('assets/img/inter-image.png') center/cover no-repeat;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
 
@@ -33,7 +24,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-<ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto">
   <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
   <li class="nav-item"><a class="nav-link" href="descrizione.html">Descrizione</a></li>
   <li class="nav-item"><a class="nav-link" href="obiettivi.html">Obiettivi</a></li>
@@ -43,23 +34,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Home (Hero Image) -->
-  <section id="home">
-    <div>
-      <h1 class="display-3">Benvenuti nel mio progetto web!</h1>
-      <p class="lead">Sto sperimentando HTML, CSS, JS e Bootstrap</p>
-      <a href="#descrizione" class="btn btn-primary btn-lg mt-3">Scopri di più</a>
-    </div>
-  </section>
-
-  <!-- Sezione Descrizione -->
-  <section id="descrizione" class="py-5">
-    <div class="container">
-      <h2 class="mb-4">Descrizione</h2>
-      <p>Questo progetto è un laboratorio personale per imparare a costruire siti web moderni e responsive utilizzando HTML, CSS, JavaScript e Bootstrap.</p>
-    </div>
-  </section>
 
   <!-- Sezione Obiettivi -->
   <section id="obiettivi" class="py-5 bg-light">
@@ -88,38 +62,11 @@
     </div>
   </section>
 
-  <!-- Sezione Contatti -->
-  <section id="contatti" class="py-5">
-    <div class="container">
-      <h2 class="mb-4">Contatti</h2>
-      <p>Email: <a href="mailto:marisonia@example.com">marisonia@example.com</a></p>
-      <p>Puoi aggiungere anche telefono o link a social.</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer class="bg-dark text-white py-3 text-center">
     <p>© 2026 Marisonia Ferrandino</p>
   </footer>
 
-  <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- JS personale -->
   <script src="js/script.js"></script>
-  <script>
-    // Scroll smooth
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll('a.nav-link').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          const target = document.querySelector(link.getAttribute('href'));
-          if(target) target.scrollIntoView({ behavior: 'smooth' });
-        });
-      });
-    });
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-  </script>
-
 </body>
 </html>

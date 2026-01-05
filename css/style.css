@@ -1,0 +1,86 @@
+/* Stile base */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Sezione Home */
+#home {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../assets/img/inter-image.png') center/cover no-repeat;
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#home h1 {
+    font-weight: 700;
+}
+#home p {
+    font-size: 1.2rem;
+}
+
+/* Bottoni */
+.btn-primary {
+    background-color: #6610f2;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #520dc2;
+}
+
+/* Sezioni */
+section {
+    padding: 60px 0;
+}
+section h2 {
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #6610f2;
+}
+
+/* Card Bootstrap (Obiettivi) */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+/* Link */
+a {
+    color: #6610f2;
+    text-decoration: none;
+}
+a:hover {
+    color: #520dc2;
+    text-decoration: underline;
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+    #home h1 {
+        font-size: 2rem;
+    }
+    #home p {
+        font-size: 1rem;
+    }
+}
