@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<script src="js/script.js"></script>
+<script>
+  if (localStorage.getItem("logged") !== "true") {
+    window.location.href = "login.html";
+  }
+</script>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -25,6 +31,7 @@
 <body>
 
   <!-- Navbar -->
+    <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">Marisonia Web</a>
@@ -33,7 +40,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-<ul class="navbar-nav ms-auto">
+         <ul class="navbar-nav ms-auto">
   <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
   <li class="nav-item"><a class="nav-link" href="descrizione.html">Descrizione</a></li>
   <li class="nav-item"><a class="nav-link" href="obiettivi.html">Obiettivi</a></li>
@@ -120,6 +127,6 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
   </script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>

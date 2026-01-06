@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<section id="descrizione" class="py-5">
-  <div class="container">
-    <h2 class="mb-4">Descrizione</h2>
-    <p>Qui puoi scrivere la descrizione del progetto, cosa fa, le tue idee e motivazioni.</p>
-  </div>
-</section>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -15,7 +9,7 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">Marisonia Web</a>
@@ -24,7 +18,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <ul class="navbar-nav ms-auto">
+         <ul class="navbar-nav ms-auto">
   <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
   <li class="nav-item"><a class="nav-link" href="descrizione.html">Descrizione</a></li>
   <li class="nav-item"><a class="nav-link" href="obiettivi.html">Obiettivi</a></li>
@@ -70,3 +64,12 @@
   <script src="js/script.js"></script>
 </body>
 </html>
+<script>
+  if (
+    localStorage.getItem("logged") !== "true" ||
+    localStorage.getItem("role") !== "admin"
+  ) {
+    alert("Accesso riservato agli admin");
+    window.location.href = "index.html";
+  }
+</script>
