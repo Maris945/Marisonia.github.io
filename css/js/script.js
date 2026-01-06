@@ -1,74 +1,40 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("JS collegato correttamente");
+function logout(){
+  localStorage.removeItem("loggedUser");
+  window.location.href="login.html";
+}
 
-    // Scroll smooth per la navbar
-    const links = document.querySelectorAll('a.nav-link');
-    links.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
+function checkLogin(){
+  return localStorage.getItem("loggedUser")!==null;
+}
 
-    // Hover sulle card
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px)';
-            card.style.transition = 'transform 0.3s';
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
-        });
-    });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("loginForm");
+function getLoggedUser(){
+  return JSON.parse(localStorage.getItem("loggedUser") || "null");
+}
 
-  if (form) {
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const accept = document.getElementById("accept").checked;
-      const errorMsg = document.getElementById("errorMsg");
-
-      if (!accept) {
-        errorMsg.textContent = "Devi accettare i termini";
-        return;
-      }
-
-      // 👤 UTENTI SIMULATI
-      if (email === "admin@test.com" && password === "admin123") {
-        localStorage.setItem("logged", "true");
-        localStorage.setItem("role", "admin");
-        window.location.href = "index.html";
-      } 
-      else if (email === "user@test.com" && password === "user123") {
-        localStorage.setItem("logged", "true");
-        localStorage.setItem("role", "user");
-        window.location.href = "index.html";
-      } 
-      else {
-        errorMsg.textContent = "Credenziali errate";
-      }
-    });
+function updateNavbar(){
+  const navAuth = document.getElementById("nav-auth");
+  if(!navAuth) return;
+  navAuth.innerHTML="";
+  if(checkLogin()){
+    const user = getLoggedUser();
+    navAuth.innerHTML = `
+      <li class="nav-item"><span class="nav-link text-success">Ciao ${user.name}!</span></li>
+      <li class="nav-item"><a href="#" class="nav-link text-danger" onclick="logout()">Logout</a></li>
+    `;
   }
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const role = localStorage.getItem("role");
+  document.addEventListener("DOMContentLoaded", () => {
+  const btnLogin = document.getElementById("btnLogin");
 
-  if (role !== "admin") {
-    document.querySelectorAll(".admin-only").forEach(el => {
-      el.style.display = "none";
-    });
-  }
+  btnLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    // Controlliamo se ci sono utenti registrati
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    if(users.length === 0){
+      alert("Devi prima registrarti!");
+    } else {
+      window.location.href = "login.html";
+    }
+  });
 });
-function logout() {
-  localStorage.clear();
-  window.location.href = "login.html";
 }
