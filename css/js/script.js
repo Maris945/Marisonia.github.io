@@ -38,3 +38,6 @@ function updateNavbar(){
   });
 });
 }
+if (!localStorage.getItem("loggedUser")) {
+  window.location.href = "index.html";
+}
