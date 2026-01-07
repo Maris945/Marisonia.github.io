@@ -2,36 +2,89 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jobby - Home</title>
+  <title>Jobby – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <!-- NAVBAR visibile solo dopo login -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Jobby</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="obbiettivi.html">Obiettivi</a></li>
-          <li class="nav-item"><a class="nav-link" href="descrizione.html">Descrizione</a></li>
-          <li class="nav-item"><a class="nav-link" href="contatti.html">Contatti</a></li>
-          <li class="nav-item"><button id="logoutBtn" class="btn btn-danger">Logout</button></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<body class="site-page">
 
-  <div class="container mt-5">
-    <h2>Benvenuta/o su Jobby!</h2>
-    <p>Sezione annunci lavoro:</p>
-    <div id="annunci">
-      <!-- Qui inserirai dinamicamente gli annunci -->
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="home.html">Jobby</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="home.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="obiettivi.html">Obiettivi</a></li>
+        <li class="nav-item"><a class="nav-link" href="descrizione.html">Descrizione</a></li>
+        <li class="nav-item"><a class="nav-link" href="contatti.html">Contatti</a></li>
+        <li class="nav-item">
+          <a class="btn btn-danger ms-2" href="index.html"
+             onclick="sessionStorage.removeItem('loggedInUser'); localStorage.removeItem('loggedInUser'); localStorage.removeItem('userName');">Logout</a>
+        </li>
+      </ul>
     </div>
   </div>
+</nav>
 
-  <script src="js/home.js"></script> <!-- gestione annunci e logout -->
+<!-- CONTENUTO HOME -->
+<div class="container mt-4">
+  <h1>Benvenuta su Jobby!</h1>
+  <p>Questa è la home page del sito, visibile solo agli utenti loggati. Qui puoi vedere i contenuti principali, navigare nelle pagine protette e accedere ai tuoi obiettivi, descrizione e contatti.</p>
+
+  <hr>
+
+  <h2>Sezione annunci di lavoro</h2>
+  <div class="row row-cols-1 row-cols-md-2 g-4 mt-2" id="annunciContainer">
+    <!-- Annunci generati da JS -->
+  </div>
+</div>
+
+<script>
+  // CONTROLLO LOGIN
+  const loggedIn = sessionStorage.getItem("loggedInUser") || localStorage.getItem("loggedInUser");
+  if(!loggedIn){
+    window.location.replace("index.html");
+  } else {
+    // Mostra nome nella navbar
+    const nome = localStorage.getItem("userName") || "";
+    if(nome) document.querySelector(".navbar-brand").textContent = "Jobby – " + nome;
+  }
+
+  // GENERA ANNUNCI DI LAVORO
+  const annunci = [
+    {titolo: "Sviluppatore Frontend", descrizione: "Cerchiamo sviluppatore frontend esperto in HTML, CSS e JS."},
+    {titolo: "Designer UX/UI", descrizione: "Designer creativo per interfaccia web e app mobile."},
+    {titolo: "Project Manager", descrizione: "Gestione progetti IT, coordinamento team e scadenze."}
+  ];
+
+  const container = document.getElementById("annunciContainer");
+  annunci.forEach(a => {
+    const col = document.createElement("div");
+    col.className = "col";
+    col.innerHTML = `
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">${a.titolo}</h5>
+          <p class="card-text">${a.descrizione}</p>
+          <button class="btn btn-primary applyBtn">Iscriviti</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(col);
+  });
+
+  // Pulsanti Iscriviti
+  document.querySelectorAll(".applyBtn").forEach(btn => {
+    btn.addEventListener("click", function(){
+      alert("Ti sei iscritto a questo annuncio!");
+    });
+  });
+</script>
+
 </body>
 </html>

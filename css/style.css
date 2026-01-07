@@ -1,102 +1,102 @@
-/* ===== RESET BASE ===== */
-body {
+/* =========================
+   RESET BASE
+========================= */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f8;
-  min-height: 100vh;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ===== CONTAINER ===== */
-.auth-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+/* =========================
+   PAGINA LOGIN / REGISTRAZIONE
+========================= */
+.auth-page {
+  background-color: #f4f6f8;
 }
 
-/* ===== CARD ===== */
-.auth-card {
+.auth-container {
+  width: 100%;
+  max-width: 420px;
   background: #ffffff;
-  width: 100%;
-  max-width: 380px;
-  padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.auth-container h2 {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-/* ===== TITOLO ===== */
-.auth-card h1 {
-  margin-bottom: 15px;
-  font-size: 2.4rem;
-  color: #0d6efd; /* blu JOBBY */
-}
-
-/* ===== TESTO ===== */
-.auth-card p {
-  margin: 10px 0;
-  font-size: 1rem;
-  color: #555;
-}
-
-/* ===== BOTTONI ===== */
-.auth-card .btn {
+.auth-container input {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-}
-
-.btn-login {
-  background-color: #0d6efd;
-  color: #fff;
-}
-
-.btn-register {
-  background-color: #198754;
-  color: #fff;
-}
-
-.btn-login:hover,
-.btn-register:hover {
-  opacity: 0.9;
-}
-@media (max-width: 576px) {
-  .auth-card {
-    padding: 25px 20px;
-  }
-
-  .auth-card h1 {
-    font-size: 2rem;
-  }
-}
-.objectives {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.objective {
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 20px;
-  width: 250px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.objective:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.objective img {
-  width: 50px;
+  padding: 10px;
   margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.auth-container button {
+  width: 100%;
+}
+
+.auth-container label {
+  font-size: 14px;
+}
+
+/* =========================
+   PAGINE DEL SITO (DOPO LOGIN)
+========================= */
+.site-page {
+  background-color: #ffffff;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.site-page .navbar {
+  background-color: #0d6efd;
+}
+
+.site-page .navbar-brand,
+.site-page .nav-link {
+  color: #ffffff !important;
+}
+
+.site-page .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* forza navbar ORIZZONTALE */
+.site-page .navbar-nav {
+  flex-direction: row;
+  gap: 15px;
+}
+
+/* =========================
+   CONTENUTO PAGINE
+========================= */
+.page-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.page-container h1 {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+  .site-page .navbar-nav {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .auth-container {
+    margin: 20px;
+  }
 }
