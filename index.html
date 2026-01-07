@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il mio sito con login</title>
+    <title>Il mio sito con login e galleria</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,7 +40,7 @@
         #gallery img {
             max-width: 80%;
             height: auto;
-            margin: 20px 0;
+            margin: 10px 0;
             border: 2px solid #ccc;
             border-radius: 10px;
         }
@@ -50,19 +50,31 @@
 
     <h1>Benvenuto sul mio sito!</h1>
 
-    <!-- Form login esistente -->
+    <!-- Login simulato -->
     <div class="login-form">
         <h2>Login</h2>
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="Username" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
             <input type="submit" value="Accedi">
         </form>
     </div>
-<div id="gallery">
-    
-    <img src="images/Images.home1.jpg" alt="Home 1">
-</div>
+
+    <!-- Mini-galleria immagini -->
+    <div id="gallery">
+        <h2>La mia galleria</h2>
+        <img src="images/home1.jpg" alt="Home 1">
+        <!-- Puoi aggiungere altre immagini qui -->
+    </div>
+
+    <script>
+        // Login simulato per GitHub Pages
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // blocca l'invio al server
+            const username = document.getElementById("username").value;
+            alert("Login simulato per " + username);
+        });
+    </script>
 
 </body>
 </html>
