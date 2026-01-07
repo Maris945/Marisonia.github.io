@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il mio sito con login e galleria</title>
+    <title>Il mio sito con login reale</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
             padding: 30px;
         }
 
-        /* Stile form login */
+        /* Login form */
         .login-form {
             margin: 20px auto;
             padding: 20px;
@@ -20,7 +20,7 @@
             max-width: 300px;
         }
 
-        .login-form input[type="text"],
+        .login-form input[type="email"],
         .login-form input[type="password"] {
             width: 90%;
             padding: 10px;
@@ -32,7 +32,7 @@
             cursor: pointer;
         }
 
-        /* Stile galleria immagini */
+        /* Galleria immagini */
         #gallery {
             margin-top: 40px;
         }
@@ -44,37 +44,62 @@
             border: 2px solid #ccc;
             border-radius: 10px;
         }
+
+        #error {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
     <h1>Benvenuto sul mio sito!</h1>
 
-    <!-- Login simulato -->
+    <!-- Login reale con Firebase -->
     <div class="login-form">
         <h2>Login</h2>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
             <input type="password" id="password" placeholder="Password" required><br>
             <input type="submit" value="Accedi">
         </form>
+        <p id="error"></p>
     </div>
 
-    <!-- Mini-galleria immagini -->
+    <!-- Galleria immagini -->
     <div id="gallery">
         <h2>La mia galleria</h2>
         <img src="images/home1.jpg" alt="Home 1">
         <!-- Puoi aggiungere altre immagini qui -->
     </div>
 
+    <!-- Firebase JS -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script>
-        // Login simulato per GitHub Pages
+        // CONFIGURA QUI IL TUO FIREBASE
+        const firebaseConfig = {
+            apiKey: "TUO_API_KEY",
+            authDomain: "TUO_PROJECT_ID.firebaseapp.com",
+            projectId: "TUO_PROJECT_ID",
+            appId: "TUO_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // LOGIN
         document.getElementById("loginForm").addEventListener("submit", function(e) {
-            e.preventDefault(); // blocca l'invio al server
-            const username = document.getElementById("username").value;
-            alert("Login simulato per " + username);
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    window.location.href = "home.html"; // pagina protetta
+                })
+                .catch(error => {
+                    document.getElementById("error").innerText = error.message;
+                });
         });
     </script>
-
 </body>
 </html>

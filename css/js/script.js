@@ -41,3 +41,9 @@ function updateNavbar(){
 if (!localStorage.getItem("loggedUser")) {
   window.location.href = "index.html";
 }
+const firebaseConfig = {
+  apiKey: "TUO_API_KEY",
+  authDomain: "TUO_PROJECT_ID.firebaseapp.com",
+  projectId: "TUO_PROJECT_ID",
+  appId: "TUO_APP_ID"
+};
