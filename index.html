@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jobby</title>
 
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
-
 nav {
   background: #333;
   color: white;
@@ -19,12 +21,10 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
-
 .logo {
   font-size: 22px;
   font-weight: bold;
 }
-
 nav a, nav button {
   color: white;
   margin-left: 15px;
@@ -33,7 +33,6 @@ nav a, nav button {
   cursor: pointer;
   font-weight: bold;
 }
-
 .form-container {
   max-width: 400px;
   margin: 30px auto;
@@ -42,30 +41,37 @@ nav a, nav button {
   border-radius: 10px;
   text-align: center;
 }
-
 input {
   width: 90%;
   padding: 10px;
   margin: 8px 0;
 }
-
-section {
-  max-width: 800px;
-  margin: 30px auto;
-  display: none;
+.section {
+  padding: 60px 0;
 }
-
-#homeImage {
+.hero {
+  background: url('images/home1.jpg') no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
-  margin-top: 30px;
-  display: none;
 }
-
-#homeImage img {
-  max-width: 50%;
-  border-radius: 10px;
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
 }
-
+.hero p {
+  font-size: 1.5rem;
+}
+.footer {
+  background: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
 .error { color: red; }
 .success { color: green; }
 </style>
@@ -106,38 +112,17 @@ section {
   <div class="form-container">
     <h2>Login</h2>
     <form id="loginForm" autocomplete="on">
-
-      <!-- EMAIL -->
-      <input type="email"
-             id="loginEmail"
-             placeholder="Email"
-             required
-             autocomplete="username">
-
-      <!-- PASSWORD -->
-      <input type="password"
-             id="loginPassword"
-             placeholder="Password"
-             required
-             autocomplete="current-password">
-
-      <!-- MOSTRA/NASCONDI PASSWORD -->
+      <input type="email" id="loginEmail" placeholder="Email" required autocomplete="username">
+      <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
       <label>
         <input type="checkbox" id="showLoginPassword"> Mostra password
       </label><br><br>
-
-      <!-- RIMANI CONNESSO -->
       <label>
         <input type="checkbox" id="stayLoggedIn"> Rimani connesso
       </label><br><br>
-
-      <!-- BOTTONE LOGIN -->
       <input type="submit" value="Accedi">
-
     </form>
     <p id="loginError" class="error"></p>
-
-    <!-- RESET PASSWORD -->
     <p><a href="#" id="resetPasswordLink">Hai dimenticato la password?</a></p>
     <p id="resetMsg" class="success"></p>
     <p id="resetError" class="error"></p>
@@ -145,34 +130,79 @@ section {
 
 </div>
 
-<!-- IMMAGINE DOPO LOGIN -->
-<div id="homeImage">
-  <h1>Benvenuto su Jobby</h1>
-  <img src="images/home1.jpg" alt="Jobby">
+<!-- HOME + SEZIONI (visibili solo dopo login) -->
+<div id="homeContent" style="display:none;">
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="container text-center text-white">
+      <h1>Benvenuto su Jobby</h1>
+      <p>Il sito che ti aiuta a trovare lavoro facilmente</p>
+      <a href="#obiettivi" class="btn btn-primary btn-lg mt-3">Scopri di più</a>
+    </div>
+  </section>
+
+  <!-- Obiettivi -->
+  <section class="section bg-light" id="obiettivi">
+    <div class="container text-center">
+      <h2>I nostri obiettivi</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <h4>Opportunità</h4>
+          <p>Ti aiutiamo a trovare le migliori offerte di lavoro.</p>
+        </div>
+        <div class="col-md-4">
+          <h4>Carriera</h4>
+          <p>Supportiamo la tua crescita professionale con consigli e corsi.</p>
+        </div>
+        <div class="col-md-4">
+          <h4>Networking</h4>
+          <p>Connetti con aziende e professionisti del settore.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Descrizione -->
+  <section class="section" id="descrizione">
+    <div class="container text-center">
+      <h2>Chi siamo</h2>
+      <p>Jobby è un sito dedicato a chi cerca lavoro o vuole migliorare la propria carriera. Offriamo strumenti, consigli e opportunità per trovare il lavoro giusto per te, in modo semplice e veloce.</p>
+    </div>
+  </section>
+
+  <!-- Contatti -->
+  <section class="section bg-light" id="contatti">
+    <div class="container">
+      <h2 class="text-center">Contatti</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="messaggio" class="form-label">Messaggio</label>
+              <textarea class="form-control" id="messaggio" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Invia</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- SEZIONI -->
-<section id="home">
-  <h2>Home</h2>
-  <p>Benvenuto nel sito Jobby.</p>
-</section>
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2026 Jobby. Tutti i diritti riservati.</p>
+</footer>
 
-<section id="obiettivi">
-  <h2>Obiettivi</h2>
-  <p>I tuoi obiettivi.</p>
-</section>
-
-<section id="descrizione">
-  <h2>Descrizione</h2>
-  <p>Descrizione del progetto.</p>
-</section>
-
-<section id="contatti">
-  <h2>Contatti</h2>
-  <p>Email: esempio@email.com</p>
-</section>
-
-<!-- FIREBASE -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -191,123 +221,87 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-// STATO UTENTE
+// Elementi
+const authContainer = document.getElementById("authContainer");
+const navLinks = document.getElementById("navLinks");
+const homeContent = document.getElementById("homeContent");
+
+// Pulizia campi
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const registerEmail = document.getElementById("registerEmail");
+const registerPassword = document.getElementById("registerPassword");
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+const showLoginPassword = document.getElementById("showLoginPassword");
+const stayLoggedIn = document.getElementById("stayLoggedIn");
+const loginError = document.getElementById("loginError");
+const registerError = document.getElementById("registerError");
+const registerSuccess = document.getElementById("registerSuccess");
+const resetPasswordLink = document.getElementById("resetPasswordLink");
+const resetMsg = document.getElementById("resetMsg");
+const resetError = document.getElementById("resetError");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Nascondo tutto all'inizio
+function hideAllSections() { homeContent.style.display = "none"; navLinks.style.display = "none"; }
+hideAllSections();
+
+// Stato utente
 auth.onAuthStateChanged(user => {
-  const sections = ["home","obiettivi","descrizione","contatti"];
-
-  if (user) {
-    // LOGGATO → nascondo form
+  if(user){
     authContainer.style.display = "none";
+    homeContent.style.display = "block";
     navLinks.style.display = "flex";
-    homeImage.style.display = "block";
-    sections.forEach(id => document.getElementById(id).style.display = "block");
-
-    // pulisco messaggi
-    registerError.innerText = "";
-    registerSuccess.innerText = "";
-    loginError.innerText = "";
-    resetMsg.innerText = "";
-    resetError.innerText = "";
-
-  } else {
-    // NON LOGGATO → mostro form
+    loginError.innerText = ""; registerError.innerText = ""; registerSuccess.innerText = "";
+    resetMsg.innerText = ""; resetError.innerText = "";
+  }else{
     authContainer.style.display = "block";
-    navLinks.style.display = "none";
-    homeImage.style.display = "none";
-    sections.forEach(id => document.getElementById(id).style.display = "none");
-
-    // pulisco messaggi e campi
-    registerError.innerText = "";
-    registerSuccess.innerText = "";
-    loginError.innerText = "";
-    resetMsg.innerText = "";
-    resetError.innerText = "";
-    loginEmail.value = "";
-    loginPassword.value = "";
-    registerEmail.value = "";
-    registerPassword.value = "";
-    firstName.value = "";
-    lastName.value = "";
+    hideAllSections();
+    loginEmail.value = ""; loginPassword.value = ""; registerEmail.value = ""; registerPassword.value = "";
+    firstName.value = ""; lastName.value = "";
+    showLoginPassword.checked = false; stayLoggedIn.checked = false;
+    loginError.innerText = ""; registerError.innerText = ""; registerSuccess.innerText = "";
+    resetMsg.innerText = ""; resetError.innerText = "";
   }
 });
 
-// REGISTRAZIONE
-document.getElementById("registerForm").addEventListener("submit", e => {
+// Registrazione
+document.getElementById("registerForm").addEventListener("submit", e=>{
   e.preventDefault();
-
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
-  const email = document.getElementById("registerEmail").value;
-  const password = document.getElementById("registerPassword").value;
-
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      db.ref("users/" + res.user.uid).set({
-        firstName, lastName, email
-      });
-      document.getElementById("registerSuccess").innerText =
-        "Registrazione completata! Ora puoi fare login.";
-      document.getElementById("registerError").innerText = "";
-    })
-    .catch(err => {
-      document.getElementById("registerError").innerText = err.message;
-      document.getElementById("registerSuccess").innerText = "";
-    });
+  auth.createUserWithEmailAndPassword(registerEmail.value, registerPassword.value)
+    .then(res=>{
+      db.ref("users/"+res.user.uid).set({firstName:firstName.value,lastName:lastName.value,email:registerEmail.value});
+      registerSuccess.innerText="Registrazione completata! Ora puoi fare login."; registerError.innerText="";
+    }).catch(err=>{registerError.innerText=err.message; registerSuccess.innerText="";});
 });
 
-// LOGIN
-document.getElementById("loginForm").addEventListener("submit", e => {
+// Login
+document.getElementById("loginForm").addEventListener("submit", e=>{
   e.preventDefault();
-
-  auth.signInWithEmailAndPassword(
-    loginEmail.value,
-    loginPassword.value
-  ).catch(err => {
-    loginError.innerText = err.message;
-  });
+  auth.signInWithEmailAndPassword(loginEmail.value,loginPassword.value)
+    .catch(err=>loginError.innerText=err.message);
 });
 
-// LOGOUT + pulizia campi
-logoutBtn.addEventListener("click", () => {
-  auth.signOut().then(() => {
-    // Pulisco tutti i campi
-    loginEmail.value = "";
-    loginPassword.value = "";
-    registerEmail.value = "";
-    registerPassword.value = "";
-    firstName.value = "";
-    lastName.value = "";
-    // pulisco checkbox
-    showLoginPassword.checked = false;
-    stayLoggedIn.checked = false;
-  });
+// Logout
+logoutBtn.addEventListener("click", ()=>{
+  auth.signOut();
 });
 
-// MOSTRA/NASCONDI PASSWORD
-showLoginPassword.addEventListener("change", function() {
-  loginPassword.type = this.checked ? "text" : "password";
-});
+// Mostra password
+showLoginPassword.addEventListener("change",()=>{loginPassword.type=showLoginPassword.checked?"text":"password";});
 
-// RESET PASSWORD
-resetPasswordLink.addEventListener("click", function(e){
+// Reset password
+resetPasswordLink.addEventListener("click", e=>{
   e.preventDefault();
   const email = loginEmail.value;
-  if(!email) {
-    resetError.innerText = "Inserisci prima la tua email";
-    resetMsg.innerText = "";
-    return;
-  }
-  auth.sendPasswordResetEmail(email)
-    .then(() => {
-      resetMsg.innerText = "Email di reset inviata!";
-      resetError.innerText = "";
-    })
-    .catch(err => {
-      resetError.innerText = err.message;
-      resetMsg.innerText = "";
-    });
+  if(!email){resetError.innerText="Inserisci prima la tua email"; resetMsg.innerText=""; return;}
+  auth.sendPasswordResetEmail(email).then(()=>{resetMsg.innerText="Email di reset inviata!"; resetError.innerText="";})
+    .catch(err=>{resetError.innerText=err.message; resetMsg.innerText="";});
 });
 </script>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
