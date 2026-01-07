@@ -5,27 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home protetta</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 30px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        #logoutBtn {
-            padding: 10px 20px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 30px; }
+        h1 { color: #333; }
+        #logoutBtn { padding: 10px 20px; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <h1>Benvenuto nella pagina protetta!</h1>
-    <p>Solo gli utenti autenticati possono vedere questa pagina.</p>
+    <p>Solo utenti autenticati possono vedere questa pagina.</p>
 
     <!-- Logout -->
     <button id="logoutBtn">Esci</button>
@@ -34,7 +22,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script>
-        // CONFIGURA QUI IL TUO FIREBASE
         const firebaseConfig = {
             apiKey: "TUO_API_KEY",
             authDomain: "TUO_PROJECT_ID.firebaseapp.com",
@@ -44,18 +31,12 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Controlla se l'utente è loggato
         auth.onAuthStateChanged(user => {
-            if (!user) {
-                window.location.href = "index.html"; // non loggato → torna al login
-            }
+            if (!user) { window.location.href = "index.html"; }
         });
 
-        // Logout
         document.getElementById("logoutBtn").addEventListener("click", function() {
-            auth.signOut().then(() => {
-                window.location.href = "index.html";
-            });
+            auth.signOut().then(() => { window.location.href = "index.html"; });
         });
     </script>
 

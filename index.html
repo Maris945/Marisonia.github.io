@@ -5,49 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Il mio sito con login reale</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 30px;
-        }
-
-        /* Login form */
-        .login-form {
-            margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            max-width: 300px;
-        }
-
-        .login-form input[type="email"],
-        .login-form input[type="password"] {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        .login-form input[type="submit"] {
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        /* Galleria immagini */
-        #gallery {
-            margin-top: 40px;
-        }
-
-        #gallery img {
-            max-width: 80%;
-            height: auto;
-            margin: 10px 0;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-        }
-
-        #error {
-            color: red;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 30px; }
+        .login-form { margin: 20px auto; padding: 20px; border: 2px solid #ccc; border-radius: 10px; max-width: 300px; }
+        .login-form input[type="email"], .login-form input[type="password"] { width: 90%; padding: 10px; margin: 10px 0; }
+        .login-form input[type="submit"] { padding: 10px 20px; cursor: pointer; }
+        #gallery { margin-top: 40px; }
+        #gallery img { max-width: 80%; height: auto; margin: 10px 0; border: 2px solid #ccc; border-radius: 10px; }
+        #error { color: red; }
     </style>
 </head>
 <body>
@@ -69,37 +33,39 @@
     <div id="gallery">
         <h2>La mia galleria</h2>
         <img src="images/home1.jpg" alt="Home 1">
-        <!-- Puoi aggiungere altre immagini qui -->
     </div>
 
     <!-- Firebase JS -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script>
-        // CONFIGURA QUI IL TUO FIREBASE
-        const firebaseConfig = {
-            apiKey: "TUO_API_KEY",
-            authDomain: "TUO_PROJECT_ID.firebaseapp.com",
-            projectId: "TUO_PROJECT_ID",
-            appId: "TUO_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-        // LOGIN
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+<script>
+  // CONFIGURAZIONE FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGgjzIMmW1YxBXTeatlf9gMHzADvER_8A",
+    authDomain: "jobby-f704a.firebaseapp.com",
+    projectId: "jobby-f704a",
+    storageBucket: "jobby-f704a.firebasestorage.app",
+    messagingSenderId: "320047348",
+    appId: "1:320047348:web:f4fab4bb3fa8b865b9f6a1",
+    measurementId: "G-ZV8WTDJL5F"
+  };
 
-            auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    window.location.href = "home.html"; // pagina protetta
-                })
-                .catch(error => {
-                    document.getElementById("error").innerText = error.message;
-                });
-        });
-    </script>
+  // Inizializza Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // LOGIN
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => { window.location.href = "home.html"; })
+      .catch(error => { document.getElementById("error").innerText = error.message; });
+  });
+</script>
+
 </body>
 </html>
