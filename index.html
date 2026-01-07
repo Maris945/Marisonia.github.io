@@ -9,46 +9,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-nav {
-  background: #333;
-  color: white;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-}
-nav a, nav button {
-  color: white;
-  margin-left: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-.form-container {
-  max-width: 400px;
-  margin: 30px auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  text-align: center;
-}
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-}
-.section {
-  padding: 60px 0;
-}
+body { margin:0; font-family: Arial, sans-serif; overflow-x:hidden; }
+.navbar-brand, .nav-link, #logoutBtn { color:white !important; font-weight:bold; }
+.nav-link { margin-left:15px; }
+.form-container { max-width:400px; margin:30px auto; padding:20px; border:2px solid #ccc; border-radius:10px; text-align:center; }
+input, textarea { width:90%; padding:10px; margin:8px 0; }
+.section { padding:60px 15px; }
 .hero {
   background: url('images/home1.jpg') no-repeat center center;
   background-size: cover;
@@ -59,35 +25,43 @@ input {
   justify-content: center;
   text-align: center;
 }
-.hero h1 {
-  font-size: 3rem;
-  font-weight: bold;
+.hero h1 { font-size:3rem; font-weight:bold; }
+.hero p { font-size:1.5rem; }
+.hero .btn { font-size:1.2rem; padding:10px 20px; }
+.footer { background:#333; color:white; padding:20px 0; text-align:center; }
+.error { color:red; }
+.success { color:green; }
+
+@media (max-width:768px) {
+  .hero h1 { font-size:2rem; }
+  .hero p { font-size:1rem; }
+  .hero .btn { font-size:0.9rem; padding:8px 15px; }
+  .form-container { width:90%; }
 }
-.hero p {
-  font-size: 1.5rem;
-}
-.footer {
-  background: #333;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
-}
-.error { color: red; }
-.success { color: green; }
 </style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
-<nav>
-  <div class="logo">Jobby</div>
-  <div id="navLinks" style="display:none;">
-    <a href="#home">Home</a>
-    <a href="#obiettivi">Obiettivi</a>
-    <a href="#descrizione">Descrizione</a>
-    <a href="#contatti">Contatti</a>
-    <button id="logoutBtn">Logout</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Jobby</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#obiettivi">Obiettivi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#descrizione">Descrizione</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+        <li class="nav-item">
+          <button id="logoutBtn" class="nav-link btn btn-link">Logout</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -102,7 +76,7 @@ input {
       <input type="text" id="lastName" placeholder="Cognome" required>
       <input type="email" id="registerEmail" placeholder="Email" required autocomplete="username">
       <input type="password" id="registerPassword" placeholder="Password" required autocomplete="new-password">
-      <input type="submit" value="Registrati">
+      <input type="submit" value="Registrati" class="btn btn-primary mt-2">
     </form>
     <p id="registerError" class="error"></p>
     <p id="registerSuccess" class="success"></p>
@@ -114,13 +88,9 @@ input {
     <form id="loginForm" autocomplete="on">
       <input type="email" id="loginEmail" placeholder="Email" required autocomplete="username">
       <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
-      <label>
-        <input type="checkbox" id="showLoginPassword"> Mostra password
-      </label><br><br>
-      <label>
-        <input type="checkbox" id="stayLoggedIn"> Rimani connesso
-      </label><br><br>
-      <input type="submit" value="Accedi">
+      <label><input type="checkbox" id="showLoginPassword"> Mostra password</label><br><br>
+      <label><input type="checkbox" id="stayLoggedIn"> Rimani connesso</label><br><br>
+      <input type="submit" value="Accedi" class="btn btn-primary mt-2">
     </form>
     <p id="loginError" class="error"></p>
     <p><a href="#" id="resetPasswordLink">Hai dimenticato la password?</a></p>
@@ -130,11 +100,12 @@ input {
 
 </div>
 
-<!-- HOME + SEZIONI (visibili solo dopo login) -->
+<!-- HOME + SEZIONI (solo dopo login) -->
 <div id="homeContent" style="display:none;">
+
   <!-- Hero -->
   <section class="hero" id="home">
-    <div class="container text-center text-white">
+    <div class="container">
       <h1>Benvenuto su Jobby</h1>
       <p>Il sito che ti aiuta a trovare lavoro facilmente</p>
       <a href="#obiettivi" class="btn btn-primary btn-lg mt-3">Scopri di più</a>
@@ -144,17 +115,17 @@ input {
   <!-- Obiettivi -->
   <section class="section bg-light" id="obiettivi">
     <div class="container text-center">
-      <h2>I nostri obiettivi</h2>
+      <h2 class="mb-4">I nostri obiettivi</h2>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
           <h4>Opportunità</h4>
           <p>Ti aiutiamo a trovare le migliori offerte di lavoro.</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
           <h4>Carriera</h4>
           <p>Supportiamo la tua crescita professionale con consigli e corsi.</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
           <h4>Networking</h4>
           <p>Connetti con aziende e professionisti del settore.</p>
         </div>
@@ -173,28 +144,20 @@ input {
   <!-- Contatti -->
   <section class="section bg-light" id="contatti">
     <div class="container">
-      <h2 class="text-center">Contatti</h2>
+      <h2 class="text-center mb-4">Contatti</h2>
       <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-8 col-12">
           <form>
-            <div class="mb-3">
-              <label for="nome" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="nome" required>
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="mb-3">
-              <label for="messaggio" class="form-label">Messaggio</label>
-              <textarea class="form-control" id="messaggio" rows="4" required></textarea>
-            </div>
+            <input type="text" class="form-control mb-3" placeholder="Nome" required>
+            <input type="email" class="form-control mb-3" placeholder="Email" required>
+            <textarea class="form-control mb-3" rows="4" placeholder="Messaggio" required></textarea>
             <button type="submit" class="btn btn-primary w-100">Invia</button>
           </form>
         </div>
       </div>
     </div>
   </section>
+
 </div>
 
 <!-- Footer -->
@@ -208,6 +171,7 @@ input {
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+// CONFIG FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyBGgjzIMmW1YxBXTeatlf9gMHzADvER_8A",
   authDomain: "jobby-f704a.firebaseapp.com",
@@ -216,17 +180,13 @@ const firebaseConfig = {
   messagingSenderId: "320047348",
   appId: "1:320047348:web:f4fab4bb3fa8b865b9f6a1"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-// Elementi
+// ELEMENTI
 const authContainer = document.getElementById("authContainer");
-const navLinks = document.getElementById("navLinks");
 const homeContent = document.getElementById("homeContent");
-
-// Pulizia campi
 const loginEmail = document.getElementById("loginEmail");
 const loginPassword = document.getElementById("loginPassword");
 const registerEmail = document.getElementById("registerEmail");
@@ -243,30 +203,22 @@ const resetMsg = document.getElementById("resetMsg");
 const resetError = document.getElementById("resetError");
 const logoutBtn = document.getElementById("logoutBtn");
 
-// Nascondo tutto all'inizio
-function hideAllSections() { homeContent.style.display = "none"; navLinks.style.display = "none"; }
-hideAllSections();
-
-// Stato utente
-auth.onAuthStateChanged(user => {
+// STATO UTENTE
+auth.onAuthStateChanged(user=>{
   if(user){
-    authContainer.style.display = "none";
-    homeContent.style.display = "block";
-    navLinks.style.display = "flex";
-    loginError.innerText = ""; registerError.innerText = ""; registerSuccess.innerText = "";
-    resetMsg.innerText = ""; resetError.innerText = "";
+    authContainer.style.display="none";
+    homeContent.style.display="block";
   }else{
-    authContainer.style.display = "block";
-    hideAllSections();
-    loginEmail.value = ""; loginPassword.value = ""; registerEmail.value = ""; registerPassword.value = "";
-    firstName.value = ""; lastName.value = "";
-    showLoginPassword.checked = false; stayLoggedIn.checked = false;
-    loginError.innerText = ""; registerError.innerText = ""; registerSuccess.innerText = "";
-    resetMsg.innerText = ""; resetError.innerText = "";
+    authContainer.style.display="block";
+    homeContent.style.display="none";
+    loginEmail.value=""; loginPassword.value="";
+    registerEmail.value=""; registerPassword.value="";
+    firstName.value=""; lastName.value="";
+    showLoginPassword.checked=false; stayLoggedIn.checked=false;
   }
 });
 
-// Registrazione
+// REGISTRAZIONE
 document.getElementById("registerForm").addEventListener("submit", e=>{
   e.preventDefault();
   auth.createUserWithEmailAndPassword(registerEmail.value, registerPassword.value)
@@ -276,28 +228,26 @@ document.getElementById("registerForm").addEventListener("submit", e=>{
     }).catch(err=>{registerError.innerText=err.message; registerSuccess.innerText="";});
 });
 
-// Login
+// LOGIN
 document.getElementById("loginForm").addEventListener("submit", e=>{
   e.preventDefault();
   auth.signInWithEmailAndPassword(loginEmail.value,loginPassword.value)
     .catch(err=>loginError.innerText=err.message);
 });
 
-// Logout
-logoutBtn.addEventListener("click", ()=>{
-  auth.signOut();
-});
+// LOGOUT
+logoutBtn.addEventListener("click", ()=>auth.signOut());
 
-// Mostra password
+// MOSTRA PASSWORD
 showLoginPassword.addEventListener("change",()=>{loginPassword.type=showLoginPassword.checked?"text":"password";});
 
-// Reset password
+// RESET PASSWORD
 resetPasswordLink.addEventListener("click", e=>{
   e.preventDefault();
-  const email = loginEmail.value;
-  if(!email){resetError.innerText="Inserisci prima la tua email"; resetMsg.innerText=""; return;}
-  auth.sendPasswordResetEmail(email).then(()=>{resetMsg.innerText="Email di reset inviata!"; resetError.innerText="";})
-    .catch(err=>{resetError.innerText=err.message; resetMsg.innerText="";});
+  const email=loginEmail.value;
+  if(!email){ resetError.innerText="Inserisci prima la tua email"; resetMsg.innerText=""; return;}
+  auth.sendPasswordResetEmail(email).then(()=>{ resetMsg.innerText="Email di reset inviata!"; resetError.innerText=""; })
+    .catch(err=>{ resetError.innerText=err.message; resetMsg.innerText=""; });
 });
 </script>
 
