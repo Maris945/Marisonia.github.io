@@ -3,13 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jobby - Home</title>
+<title>Home - Jobby</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 body { font-family: Arial, sans-serif; margin:0; }
 .navbar { margin-bottom:20px; }
-.section { padding:60px 15px; }
-.btn-back { margin-top:20px; }
+.section { padding:40px 15px; }
+
+/* Form login/registrazione */
+.form-container { max-width:400px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); background:#f8f9fa; }
+.form-container input, .form-container button, .form-container textarea { margin-bottom:10px; }
+
+/* Sezione annunci */
+.job-card, .job-form { background: #f8f9fa; padding: 20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.08); margin-bottom:20px; }
+.job-card { transition: transform 0.3s, box-shadow 0.3s; }
+.job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+.job-card h4 { margin-bottom: 8px; }
+.job-card p { margin-bottom: 10px; }
+.job-card button { background-color: #0d6efd; border: none; color: #fff; padding: 6px 15px; border-radius: 8px; cursor: pointer; margin-right:5px; }
+.job-card button:hover { background-color: #0b5ed7; }
+
 </style>
 </head>
 <body>
@@ -17,13 +30,13 @@ body { font-family: Arial, sans-serif; margin:0; }
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="home.html">Jobby</a>
+    <a class="navbar-brand" href="#">Jobby</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link protetto" href="#">Home</a></li>
         <li class="nav-item"><a class="nav-link protetto" href="obiettivi.html">Obiettivi</a></li>
         <li class="nav-item"><a class="nav-link protetto" href="descrizione.html">Descrizione</a></li>
         <li class="nav-item"><a class="nav-link protetto" href="contatti.html">Contatti</a></li>
@@ -33,21 +46,63 @@ body { font-family: Arial, sans-serif; margin:0; }
   </div>
 </nav>
 
-<section class="section text-center">
-  <div class="container">
-    <h1>Benvenuti su Jobby</h1>
-    <p>Il tuo sito per trovare lavoro e crescere professionalmente.</p>
+<!-- Immagine iniziale -->
+<div id="heroImage" class="text-center my-4">
+  <img src="images/Images.home1.jpg" class="img-fluid" alt="Home Image">
+</div>
 
-    <!-- Bottone Accedi / Registrati -->
-    <div id="loginRegisterBtn" class="mt-4">
-      <a href="index.html" class="btn btn-secondary">Accedi / Registrati</a>
-    </div>
+<!-- Form Login -->
+<div id="loginFormContainer" class="form-container">
+  <h3>Accedi</h3>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required autocomplete="email">
+    <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+    <label><input type="checkbox" id="showLoginPassword"> Mostra password</label>
+    <label><input type="checkbox" id="stayLogged"> Rimani connesso</label>
+    <button type="submit" class="btn btn-primary w-100">Accedi</button>
+  </form>
+  <p class="mt-2">Non sei registrato? <a href="#" id="switchToRegister">Registrati</a></p>
+</div>
+
+<!-- Form Registrazione -->
+<div id="registerFormContainer" class="form-container" style="display:none;">
+  <h3>Registrati</h3>
+  <form id="registerForm">
+    <input type="text" id="regNome" placeholder="Nome" required>
+    <input type="text" id="regCognome" placeholder="Cognome" required>
+    <input type="email" id="regEmail" placeholder="Email" required autocomplete="email">
+    <input type="password" id="regPassword" placeholder="Password" required autocomplete="new-password">
+    <label><input type="checkbox" id="showRegPassword"> Mostra password</label>
+    <button type="submit" class="btn btn-success w-100">Registrati</button>
+  </form>
+  <p class="mt-2">Hai già un account? <a href="#" id="switchToLogin">Accedi</a></p>
+</div>
+
+<!-- Sezione annunci (solo dopo login) -->
+<div id="jobListings" class="container" style="display:none;">
+  <h2 class="my-4 text-center">Annunci di lavoro</h2>
+
+  <!-- Form nuovo annuncio -->
+  <div class="job-form">
+    <h4>Pubblica un annuncio</h4>
+    <form id="createJobForm">
+      <input type="text" id="jobTitle" placeholder="Titolo annuncio" required>
+      <input type="text" id="jobCompany" placeholder="Azienda" required>
+      <textarea id="jobDescription" rows="3" placeholder="Descrizione" required></textarea>
+      <button type="submit">Pubblica</button>
+    </form>
+    <p id="jobStatus" class="mt-2"></p>
   </div>
-</section>
+
+  <!-- Lista annunci -->
+  <div id="jobsList"></div>
+</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBGgjzIMmW1YxBXTeatlf9gMHzADvER_8A",
@@ -59,31 +114,105 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
-// Selezioni elementi
+// Mostra/Nascondi password
+document.getElementById("showLoginPassword").addEventListener("change", e => {
+  document.getElementById("loginPassword").type = e.target.checked ? "text" : "password";
+});
+document.getElementById("showRegPassword").addEventListener("change", e => {
+  document.getElementById("regPassword").type = e.target.checked ? "text" : "password";
+});
+
+// Switch form
+document.getElementById("switchToRegister").addEventListener("click", ()=>{
+  document.getElementById("loginFormContainer").style.display="none";
+  document.getElementById("registerFormContainer").style.display="block";
+});
+document.getElementById("switchToLogin").addEventListener("click", ()=>{
+  document.getElementById("registerFormContainer").style.display="none";
+  document.getElementById("loginFormContainer").style.display="block";
+});
+
+// Protezione sezioni e annunci
 const protetti = document.querySelectorAll('.nav-link.protetto');
 const logoutBtn = document.getElementById("logoutBtn");
-const loginRegisterBtn = document.getElementById("loginRegisterBtn");
+const jobListings = document.getElementById("jobListings");
+const heroImage = document.getElementById("heroImage");
+protetti.forEach(el => el.style.display="none");
+jobListings.style.display="none";
 
-// Stato utente
-protetti.forEach(el => el.style.display = "none");
-
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(user=>{
   if(user){
-    // Loggato → mostra link protetti, nascondi tasto Accedi/Registrati
-    protetti.forEach(el => el.style.display = "block");
-    loginRegisterBtn.style.display = "none";
+    protetti.forEach(el => el.style.display="block");
+    jobListings.style.display="block";
+    heroImage.style.display="none";
+    document.getElementById("loginFormContainer").style.display="none";
+    document.getElementById("registerFormContainer").style.display="none";
   } else {
-    // Non loggato → nascondi link protetti, mostra tasto Accedi/Registrati
-    protetti.forEach(el => el.style.display = "none");
-    loginRegisterBtn.style.display = "block";
+    protetti.forEach(el => el.style.display="none");
+    jobListings.style.display="none";
+    heroImage.style.display="block";
+    document.getElementById("loginFormContainer").style.display="block";
   }
 });
 
 // Logout
-logoutBtn.addEventListener("click", () => {
-  auth.signOut().then(() => window.location.href="index.html");
+logoutBtn.addEventListener("click", ()=>{
+  auth.signOut().then(()=>{
+    window.location.href="index.html";
+  });
 });
+
+// Pubblica annuncio
+document.getElementById("createJobForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const user = firebase.auth().currentUser;
+  if(!user){ alert("Devi essere loggato per pubblicare!"); return; }
+
+  const title = document.getElementById("jobTitle").value;
+  const company = document.getElementById("jobCompany").value;
+  const description = document.getElementById("jobDescription").value;
+
+  db.collection("jobs").add({
+    title, company, description,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    creatorUid: user.uid
+  }).then(() => {
+    document.getElementById("jobStatus").textContent = "Annuncio pubblicato!";
+    document.getElementById("createJobForm").reset();
+    loadJobs();
+  });
+});
+
+// Carica annunci
+function loadJobs(){
+  const jobsList = document.getElementById("jobsList");
+  jobsList.innerHTML = "";
+  db.collection("jobs").orderBy("createdAt","desc").get().then(snapshot=>{
+    snapshot.forEach(doc=>{
+      const job = doc.data();
+      const user = firebase.auth().currentUser;
+      const isCreator = user && user.uid === job.creatorUid;
+      const card = document.createElement("div");
+      card.className = "job-card";
+      card.innerHTML = `
+        <h4>${job.title}</h4>
+        <p><strong>Azienda:</strong> ${job.company}</p>
+        <p>${job.description}</p>
+        ${isCreator ? `<button onclick="deleteJob('${doc.id}')">Elimina</button>` : ""}
+      `;
+      jobsList.appendChild(card);
+    });
+  });
+}
+
+// Elimina annuncio
+function deleteJob(jobId){
+  if(confirm("Vuoi davvero eliminare questo annuncio?")){
+    db.collection("jobs").doc(jobId).delete().then(()=> loadJobs());
+  }
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
