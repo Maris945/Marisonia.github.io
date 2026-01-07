@@ -149,6 +149,7 @@ auth.onAuthStateChanged(user=>{
     heroImage.style.display="none";
     document.getElementById("loginFormContainer").style.display="none";
     document.getElementById("registerFormContainer").style.display="none";
+    loadJobs();
   } else {
     protetti.forEach(el => el.style.display="none");
     jobListings.style.display="none";
