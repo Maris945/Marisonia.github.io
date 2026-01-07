@@ -47,3 +47,33 @@ const firebaseConfig = {
   projectId: "TUO_PROJECT_ID",
   appId: "TUO_APP_ID"
 };
+// Reset password
+document.getElementById("resetPasswordLink").addEventListener("click", function(e){
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  if(!email) {
+    document.getElementById("resetError").innerText = "Inserisci prima la tua email";
+    document.getElementById("resetMsg").innerText = "";
+    return;
+  }
+  auth.sendPasswordResetEmail(email)
+    .then(() => {
+      document.getElementById("resetMsg").innerText = "Email di reset inviata!";
+      document.getElementById("resetError").innerText = "";
+    })
+    .catch(err => {
+      document.getElementById("resetError").innerText = err.message;
+      document.getElementById("resetMsg").innerText = "";
+    });
+});
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  auth.signOut().then(() => {
+    // Pulisco i campi login e registrazione
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("registerEmail").value = "";
+    document.getElementById("registerPassword").value = "";
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+  });
+});

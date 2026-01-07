@@ -1,70 +1,312 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il mio sito con login reale</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 30px; }
-        .login-form { margin: 20px auto; padding: 20px; border: 2px solid #ccc; border-radius: 10px; max-width: 300px; }
-        .login-form input[type="email"], .login-form input[type="password"] { width: 90%; padding: 10px; margin: 10px 0; }
-        .login-form input[type="submit"] { padding: 10px 20px; cursor: pointer; }
-        #gallery { margin-top: 40px; }
-        #gallery img { max-width: 80%; height: auto; margin: 10px 0; border: 2px solid #ccc; border-radius: 10px; }
-        #error { color: red; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobby</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+nav a, nav button {
+  color: white;
+  margin-left: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+section {
+  max-width: 800px;
+  margin: 30px auto;
+  display: none;
+}
+
+#homeImage {
+  text-align: center;
+  margin-top: 30px;
+  display: none;
+}
+
+#homeImage img {
+  max-width: 50%;
+  border-radius: 10px;
+}
+
+.error { color: red; }
+.success { color: green; }
+</style>
 </head>
+
 <body>
 
-    <h1>Benvenuto sul mio sito!</h1>
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Jobby</div>
+  <div id="navLinks" style="display:none;">
+    <a href="#home">Home</a>
+    <a href="#obiettivi">Obiettivi</a>
+    <a href="#descrizione">Descrizione</a>
+    <a href="#contatti">Contatti</a>
+    <button id="logoutBtn">Logout</button>
+  </div>
+</nav>
 
-    <!-- Login reale con Firebase -->
-    <div class="login-form">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="email" id="email" placeholder="Email" required><br>
-            <input type="password" id="password" placeholder="Password" required><br>
-            <input type="submit" value="Accedi">
-        </form>
-        <p id="error"></p>
-    </div>
+<!-- LOGIN + REGISTRAZIONE -->
+<div id="authContainer">
 
-    <!-- Galleria immagini -->
-    <div id="gallery">
-        <h2>La mia galleria</h2>
-        <img src="images/home1.jpg" alt="Home 1">
-    </div>
+  <!-- REGISTRAZIONE -->
+  <div class="form-container">
+    <h2>Registrazione</h2>
+    <form id="registerForm" autocomplete="on">
+      <input type="text" id="firstName" placeholder="Nome" required>
+      <input type="text" id="lastName" placeholder="Cognome" required>
+      <input type="email" id="registerEmail" placeholder="Email" required autocomplete="username">
+      <input type="password" id="registerPassword" placeholder="Password" required autocomplete="new-password">
+      <input type="submit" value="Registrati">
+    </form>
+    <p id="registerError" class="error"></p>
+    <p id="registerSuccess" class="success"></p>
+  </div>
 
-    <!-- Firebase JS -->
+  <!-- LOGIN -->
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm" autocomplete="on">
+
+      <!-- EMAIL -->
+      <input type="email"
+             id="loginEmail"
+             placeholder="Email"
+             required
+             autocomplete="username">
+
+      <!-- PASSWORD -->
+      <input type="password"
+             id="loginPassword"
+             placeholder="Password"
+             required
+             autocomplete="current-password">
+
+      <!-- MOSTRA/NASCONDI PASSWORD -->
+      <label>
+        <input type="checkbox" id="showLoginPassword"> Mostra password
+      </label><br><br>
+
+      <!-- RIMANI CONNESSO -->
+      <label>
+        <input type="checkbox" id="stayLoggedIn"> Rimani connesso
+      </label><br><br>
+
+      <!-- BOTTONE LOGIN -->
+      <input type="submit" value="Accedi">
+
+    </form>
+    <p id="loginError" class="error"></p>
+
+    <!-- RESET PASSWORD -->
+    <p><a href="#" id="resetPasswordLink">Hai dimenticato la password?</a></p>
+    <p id="resetMsg" class="success"></p>
+    <p id="resetError" class="error"></p>
+  </div>
+
+</div>
+
+<!-- IMMAGINE DOPO LOGIN -->
+<div id="homeImage">
+  <h1>Benvenuto su Jobby</h1>
+  <img src="images/home1.jpg" alt="Jobby">
+</div>
+
+<!-- SEZIONI -->
+<section id="home">
+  <h2>Home</h2>
+  <p>Benvenuto nel sito Jobby.</p>
+</section>
+
+<section id="obiettivi">
+  <h2>Obiettivi</h2>
+  <p>I tuoi obiettivi.</p>
+</section>
+
+<section id="descrizione">
+  <h2>Descrizione</h2>
+  <p>Descrizione del progetto.</p>
+</section>
+
+<section id="contatti">
+  <h2>Contatti</h2>
+  <p>Email: esempio@email.com</p>
+</section>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-  // CONFIGURAZIONE FIREBASE
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGgjzIMmW1YxBXTeatlf9gMHzADvER_8A",
-    authDomain: "jobby-f704a.firebaseapp.com",
-    projectId: "jobby-f704a",
-    storageBucket: "jobby-f704a.firebasestorage.app",
-    messagingSenderId: "320047348",
-    appId: "1:320047348:web:f4fab4bb3fa8b865b9f6a1",
-    measurementId: "G-ZV8WTDJL5F"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBGgjzIMmW1YxBXTeatlf9gMHzADvER_8A",
+  authDomain: "jobby-f704a.firebaseapp.com",
+  projectId: "jobby-f704a",
+  storageBucket: "jobby-f704a.firebasestorage.app",
+  messagingSenderId: "320047348",
+  appId: "1:320047348:web:f4fab4bb3fa8b865b9f6a1"
+};
 
-  // Inizializza Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
 
-  // LOGIN
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+// STATO UTENTE
+auth.onAuthStateChanged(user => {
+  const sections = ["home","obiettivi","descrizione","contatti"];
 
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => { window.location.href = "home.html"; })
-      .catch(error => { document.getElementById("error").innerText = error.message; });
+  if (user) {
+    // LOGGATO → nascondo form
+    authContainer.style.display = "none";
+    navLinks.style.display = "flex";
+    homeImage.style.display = "block";
+    sections.forEach(id => document.getElementById(id).style.display = "block");
+
+    // pulisco messaggi
+    registerError.innerText = "";
+    registerSuccess.innerText = "";
+    loginError.innerText = "";
+    resetMsg.innerText = "";
+    resetError.innerText = "";
+
+  } else {
+    // NON LOGGATO → mostro form
+    authContainer.style.display = "block";
+    navLinks.style.display = "none";
+    homeImage.style.display = "none";
+    sections.forEach(id => document.getElementById(id).style.display = "none");
+
+    // pulisco messaggi e campi
+    registerError.innerText = "";
+    registerSuccess.innerText = "";
+    loginError.innerText = "";
+    resetMsg.innerText = "";
+    resetError.innerText = "";
+    loginEmail.value = "";
+    loginPassword.value = "";
+    registerEmail.value = "";
+    registerPassword.value = "";
+    firstName.value = "";
+    lastName.value = "";
+  }
+});
+
+// REGISTRAZIONE
+document.getElementById("registerForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("registerEmail").value;
+  const password = document.getElementById("registerPassword").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(res => {
+      db.ref("users/" + res.user.uid).set({
+        firstName, lastName, email
+      });
+      document.getElementById("registerSuccess").innerText =
+        "Registrazione completata! Ora puoi fare login.";
+      document.getElementById("registerError").innerText = "";
+    })
+    .catch(err => {
+      document.getElementById("registerError").innerText = err.message;
+      document.getElementById("registerSuccess").innerText = "";
+    });
+});
+
+// LOGIN
+document.getElementById("loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  auth.signInWithEmailAndPassword(
+    loginEmail.value,
+    loginPassword.value
+  ).catch(err => {
+    loginError.innerText = err.message;
   });
+});
+
+// LOGOUT + pulizia campi
+logoutBtn.addEventListener("click", () => {
+  auth.signOut().then(() => {
+    // Pulisco tutti i campi
+    loginEmail.value = "";
+    loginPassword.value = "";
+    registerEmail.value = "";
+    registerPassword.value = "";
+    firstName.value = "";
+    lastName.value = "";
+    // pulisco checkbox
+    showLoginPassword.checked = false;
+    stayLoggedIn.checked = false;
+  });
+});
+
+// MOSTRA/NASCONDI PASSWORD
+showLoginPassword.addEventListener("change", function() {
+  loginPassword.type = this.checked ? "text" : "password";
+});
+
+// RESET PASSWORD
+resetPasswordLink.addEventListener("click", function(e){
+  e.preventDefault();
+  const email = loginEmail.value;
+  if(!email) {
+    resetError.innerText = "Inserisci prima la tua email";
+    resetMsg.innerText = "";
+    return;
+  }
+  auth.sendPasswordResetEmail(email)
+    .then(() => {
+      resetMsg.innerText = "Email di reset inviata!";
+      resetError.innerText = "";
+    })
+    .catch(err => {
+      resetError.innerText = err.message;
+      resetMsg.innerText = "";
+    });
+});
 </script>
 
 </body>
